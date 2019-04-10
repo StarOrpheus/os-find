@@ -32,7 +32,6 @@ struct linux_dirent
     char           d_name[];
 };
 
-using getdents_buff_t = std::aligned_storage<GETDENTS_BUF_SZ, GETDENTS_BUF_SZ>;
 using argv_vec = std::vector<char*>;
 
 static inline bool parse_argv(findutil_config& config,
@@ -118,7 +117,7 @@ static inline bool prepare_args(findutil_config const& config,
     if (config.execp->size() + path.size() + 2 > EXECVE_ARGS_BUF_SZ)
     {
         fprintf(stderr, "Length of the path to the executable "
-                        "and the path to the found file is out of buffer size bound.\n");
+                        "2and the path to the found file is out of buffer size bound.\n");
         return false;
     }
 
@@ -243,12 +242,10 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-//    getdents_buff_t         _getdents_buffer;
     char                    getdents_buffer[GETDENTS_BUF_SZ];
     struct linux_dirent*    dirent;
     std::queue<std::string> q;
     std::string             current_dirent_path;
-//    getdents_buffer = reinterpret_cast<char *>(&_getdents_buffer);
 
     q.push(argv[1]);
     while (!q.empty())

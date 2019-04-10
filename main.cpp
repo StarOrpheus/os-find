@@ -111,7 +111,8 @@ static inline bool prepare_args(findutil_config const& config,
                                 argv_vec& arg_list)
 {
     static char buffer[EXECVE_ARGS_BUF_SZ];
-    static char* buff_end = buffer;
+    static char* buff_end;
+    buff_end = buffer;
 
     assert(config.execp);
     if (config.execp->size() + path.size() + 2 > EXECVE_ARGS_BUF_SZ)

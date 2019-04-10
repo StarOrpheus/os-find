@@ -117,7 +117,8 @@ static inline bool prepare_args(findutil_config const& config,
     assert(config.execp);
     if (config.execp->size() + path.size() + 2 > EXECVE_ARGS_BUF_SZ)
     {
-        fprintf(stderr, "Length of the path to executable and path to found file is out of buffer size bound.\n");
+        fprintf(stderr, "Length of the path to the executable "
+                        "and the path to the found file is out of buffer size bound.\n");
         return false;
     }
 
